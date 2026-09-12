@@ -1,26 +1,288 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+html {
+  scroll-behavior: smooth;
+}
+body {
+  margin: 0;
+  font-family: inherit;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* City hero focal points are supplied by each city object so important landmarks stay visible. */
+.city-hero-image {
+  /* Show the complete panoramic artwork on narrow screens so the car is never cropped. */
+  object-fit: contain;
+  object-position: center bottom;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+.city-hero {
+  background: linear-gradient(135deg, #075985 0%, #0891b2 58%, #65a30d 100%);
+}
+
+/* Phones need a stronger veil because the copy and landmark share a much narrower canvas. */
+.city-hero-overlay {
+  background: linear-gradient(
+    90deg,
+    rgb(8 47 73 / 92%) 0%,
+    rgb(8 47 73 / 72%) 55%,
+    rgb(8 47 73 / 16%) 100%
+  );
+}
+
+@media (min-width: 640px) {
+  .city-hero-image {
+    object-position: center bottom;
+  }
+
+  .city-hero-overlay {
+    background: linear-gradient(
+      90deg,
+      rgb(8 47 73 / 86%) 0%,
+      rgb(8 47 73 / 48%) 58%,
+      transparent 100%
+    );
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@media (min-width: 1024px) {
+  .city-hero-image {
+    object-fit: cover;
+    object-position: var(--hero-position-desktop, 62% center);
+  }
+
+  .city-hero-overlay {
+    background: linear-gradient(
+      90deg,
+      rgb(8 47 73 / 80%) 0%,
+      rgb(8 47 73 / 35%) 55%,
+      transparent 100%
+    );
+  }
+}
+
+/* Shared page container: fluid gutters on phones/tablets, capped on wide screens. */
+.container {
+  width: calc(100% - 2rem);
+  max-width: 90rem;
+  margin-inline: auto;
+}
+
+@media (min-width: 640px) {
+  .container {
+    width: calc(100% - 3rem);
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    width: calc(100% - 5rem);
+  }
+}
+
+@media (min-width: 1440px) {
+  .container {
+    width: calc(100% - 20rem);
+  }
+}
+
+/* Promo banner: local tunnel image with a dark layer for readable white content. */
+.promo-section {
+  position: relative;
+  isolation: isolate;
+  background: url("/promo-bg.jpg") center / cover fixed;
+}
+
+/* Dark overlay that recreates the supplied reference's black right panel. */
+.promo-section::after {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  content: "";
+  background: rgb(0 0 0 / 80%);
+}
+
+/* Desktop reference: car begins 88px below the banner and ends at 422px total height. */
+.promo-box-left {
+  position: relative;
+  z-index: 1;
+  padding-top: 88px;
+  padding-bottom: 68px;
+}
+
+/* Fixed desktop car canvas from the supplied design; image stays naturally responsive below 1024px. */
+.promo-car-image {
+  width: 500px;
+  height: 266px;
+}
+
+/* Large lime panel behind the car; skew makes its diagonal edge. */
+.promo-box-left::after {
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  right: 55%;
+  width: 2030px;
+  height: 100%;
+  content: "";
+  background: #75b81b;
+  transform: skewX(45deg);
+}
+
+/* White diagonal strip separating the car panel from the tunnel background. */
+.promo-box-left::before {
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  right: 43%;
+  width: 70px;
+  height: 100%;
+  content: "";
+  background: #fff;
+  transform: skewX(45deg);
+}
+
+/* Align copy 12px inside the right column and level with the car image. */
+.promo-box-right {
+  padding: 92px 0 0 12px;
+}
+
+.promo-box-right h2 {
+  /* 700px keeps the desktop line breaks identical to the reference. */
+  max-width: 700px;
+  margin: 0 0 36px;
+  color: #fff;
+  font-size: clamp(26px, 2.35vw, 34px);
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+/* Outlined booking link with offset corner accents. */
+.promo-book-button {
+  position: relative;
+  display: inline-block;
+  border: 2px solid #75b81b;
+  padding: 10px 16px;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 200ms ease;
+}
+
+.promo-book-button::before,
+.promo-book-button::after {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  content: "";
+  pointer-events: none;
+  transition:
+    width 250ms ease,
+    height 250ms ease;
+}
+
+.promo-book-button::before {
+  top: -7px;
+  left: -7px;
+  border-top: 2px solid #75b81b;
+  border-left: 2px solid #75b81b;
+}
+
+.promo-book-button::after {
+  right: -7px;
+  bottom: -7px;
+  border-right: 2px solid #75b81b;
+  border-bottom: 2px solid #75b81b;
+}
+
+.promo-book-button:hover::before,
+.promo-book-button:hover::after {
+  width: calc(100% + 12px);
+  height: calc(100% + 12px);
+}
+
+/* Light variant used by buttons inside the white booking form. */
+.promo-book-button.form-outline-button {
+  color: #65a30d;
+}
+
+/* Floating WhatsApp icon with an expanding radiation/pulse ring. */
+.whatsapp-float::before,
+.whatsapp-float::after {
+  position: absolute;
+  z-index: -1;
+  inset: 8px;
+  border: 2px solid #22c55e;
+  border-radius: 9999px;
+  content: "";
+  animation: whatsapp-radiation 2s ease-out infinite;
+}
+
+.whatsapp-float::after {
+  animation-delay: 1s;
+}
+
+@keyframes whatsapp-radiation {
+  0% {
+    opacity: 0.8;
+    transform: scale(0.75);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.8);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .whatsapp-float::before,
+  .whatsapp-float::after {
+    animation: none;
+  }
+}
+
+/* Mobile layout stacks content, restores a fluid car image, and removes desktop skew panels. */
+@media (max-width: 1279px) {
+  .promo-box-left {
+    padding-top: 35px;
+    padding-bottom: 0;
+  }
+
+  .promo-box-left::after,
+  .promo-box-left::before {
+    display: none;
+  }
+
+  .promo-box-right {
+    padding: 65px 20px 45px;
+    text-align: center;
+  }
+
+  .promo-box-right h2 {
+    margin-inline: auto;
+  }
+
+  .promo-car-image {
+    width: 100%;
+    height: auto;
+  }
+}
+
+@media (max-width: 639px) {
+  .promo-section {
+    background-attachment: scroll;
+  }
+
+  .promo-box-left {
+    padding-top: 24px;
+  }
+
+  .promo-box-right {
+    padding: 55px 0 40px;
+  }
+
+  .promo-box-right h2 {
+    margin-bottom: 28px;
+    font-size: clamp(22px, 7vw, 28px);
+    line-height: 1.25;
+  }
 }
