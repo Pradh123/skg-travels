@@ -1,4 +1,5 @@
-import { FaInstagram, FaLinkedinIn, FaTwitter, FaYoutube } from "react-icons/fa";
+import { FaInstagram, FaLinkedinIn, FaYoutube } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
 import Link from "next/link";
 export default function Footer() {
   return (
@@ -49,28 +50,36 @@ export default function Footer() {
           <p className="text-sm sm:text-base">Contact us</p>
           <div className="mt-4 flex items-center justify-center gap-4 md:justify-start">
             <a
-              href="#"
+              href="https://www.youtube.com/channel/UCYIC6L3qmaEJk695xwbQ0-g"
+              target="_blank"
+              rel="noopener noreferrer"
               aria-label="YouTube"
               className="grid h-9 w-9 place-items-center rounded-full border border-white/20 transition hover:border-lime-500 hover:text-lime-500"
             >
               <FaYoutube size={18} />
             </a>
             <a
-              href="#"
+              href="https://www.instagram.com/skgtravelsind/"
+              target="_blank"
+              rel="noopener noreferrer"
               aria-label="Instagram"
               className="grid h-9 w-9 place-items-center rounded-full border border-white/20 transition hover:border-lime-500 hover:text-lime-500"
             >
               <FaInstagram size={18} />
             </a>
             <a
-              href="#"
-              aria-label="Twitter"
+              href="https://x.com/skgtravelsInd"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="X"
               className="grid h-9 w-9 place-items-center rounded-full border border-white/20 transition hover:border-lime-500 hover:text-lime-500"
             >
-              <FaTwitter size={18} />
+              <FaXTwitter size={18} />
             </a>
             <a
-              href="#"
+              href="https://www.linkedin.com/company/skg-travels/about/"
+              target="_blank"
+              rel="noopener noreferrer"
               aria-label="LinkedIn"
               className="grid h-9 w-9 place-items-center rounded-full border border-white/20 transition hover:border-lime-500 hover:text-lime-500"
             >

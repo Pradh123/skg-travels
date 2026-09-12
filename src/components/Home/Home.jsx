@@ -1,9 +1,10 @@
 "use client";
 import { motion } from "framer-motion";
-import { CalendarDays, Car, Check, Clock3, MapPin } from "lucide-react";
+import { Car, Check, MapPin } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
 import { FaWhatsapp } from "react-icons/fa";
+import { DatePicker, TimePicker } from "./BookingPickers";
 const cars = [
   {
     name: "Mini",
@@ -76,6 +77,15 @@ const riseReveal = {
 const replayViewport = { once: false, amount: 0.2 };
 export default function Home() {
   const [trip, setTrip] = useState("One way");
+  const [pickupDate, setPickupDate] = useState("");
+  const [returnDate, setReturnDate] = useState("");
+  const [pickupTime, setPickupTime] = useState("");
+
+  function changePickupDate(date) {
+    setPickupDate(date);
+    if (returnDate && returnDate < date) setReturnDate("");
+  }
+
   return (
     <main id="home" className="overflow-hidden bg-white text-slate-900">
       {/* Landing hero: booking form on the left and booking CTAs on the right. */}
@@ -84,40 +94,59 @@ export default function Home() {
           <motion.form
             id="book"
             onSubmit={(e) => e.preventDefault()}
-            initial="hidden"
+            initial={false}
             animate="visible"
             variants={reveal}
             transition={{ duration: 0.55 }}
-            className="rounded-xl border-t-4 border-lime-500 bg-white p-4 shadow-2xl sm:p-7"
+            className="relative z-10 w-full justify-self-center rounded-xl border-t-4 border-lime-500 bg-white p-4 shadow-2xl sm:max-w-[620px] sm:p-5 lg:max-w-[530px] lg:justify-self-start"
           >
-            <h2 className="mb-8 text-xl font-bold">BOOK RIDE</h2>
-            <div className="grid gap-5 sm:grid-cols-2">
+            <h2 className="mb-5 text-xl font-bold">BOOK RIDE</h2>
+            <div className="grid gap-3 sm:grid-cols-2">
               <Field label="Name" placeholder="Name" />
               <Field label="Mobile" placeholder="Mobile No" />
             </div>
-            <div className="my-7 flex flex-wrap gap-2">
-              {["One way", "Round trip", "Local - Rental", "City To City"].map((t) => (
+            <div className="my-4 flex flex-wrap gap-2">
+              {["One way", "Round trip"].map((t) => (
                 <button
                   type="button"
                   key={t}
-                  onClick={() => setTrip(t)}
-                  className={`px-4 py-2 text-sm font-medium transition ${trip === t ? "bg-lime-500 text-white" : "hover:bg-lime-50"}`}
+                  onClick={() => {
+                    setTrip(t);
+                    if (t === "One way") setReturnDate("");
+                  }}
+                  aria-pressed={trip === t}
+                  className={`cursor-pointer rounded-md px-4 py-2 text-sm font-medium transition ${trip === t ? "bg-lime-600 text-white" : "hover:bg-lime-50"}`}
                 >
                   {t}
                 </button>
               ))}
             </div>
-            <div className="grid gap-5 sm:grid-cols-2">
+            <div className="grid gap-3 sm:grid-cols-2">
               <Field label="From" placeholder="Enter a location" icon={<MapPin size={17} />} />
               <Field label="To" placeholder="Enter a location" icon={<MapPin size={17} />} />
-              <Field
+              <DatePicker
                 label="Pickup Date"
-                placeholder="dd-mm-yyyy"
-                icon={<CalendarDays size={17} />}
+                name="pickupDate"
+                value={pickupDate}
+                onChange={changePickupDate}
               />
-              <Field label="Pickup Time" placeholder="--:--" icon={<Clock3 size={17} />} />
+              <TimePicker
+                label="Pickup Time"
+                name="pickupTime"
+                value={pickupTime}
+                onChange={setPickupTime}
+              />
+              {trip === "Round trip" && (
+                <DatePicker
+                  label="Return Date"
+                  name="returnDate"
+                  value={returnDate}
+                  onChange={setReturnDate}
+                  minDate={pickupDate}
+                />
+              )}
             </div>
-            <div className="mt-8 text-right">
+            <div className="mt-5 text-right">
               <motion.button
                 whileTap={{ scale: 0.96 }}
                 className="promo-book-button form-outline-button cursor-pointer bg-transparent font-bold"
@@ -127,7 +156,7 @@ export default function Home() {
             </div>
           </motion.form>
           <motion.div
-            initial="hidden"
+            initial={false}
             animate="visible"
             variants={reveal}
             transition={{ delay: 0.18, duration: 0.55 }}
@@ -215,16 +244,23 @@ export default function Home() {
             ))}
           </div>
         </motion.div>
-        <motion.img
+        <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={replayViewport}
           variants={slideFromRight}
           transition={{ duration: 0.65, delay: 0.22, ease: "easeOut" }}
-          src="/about-red-audi.png"
-          alt="Red Audi ABT sedan"
-          className="mx-auto h-auto w-full max-w-[680px] object-contain"
-        />
+          className="mx-auto w-full max-w-[680px]"
+        >
+          <Image
+            src="/about-red-audi.png"
+            alt="Red Audi sedan available for cab rental"
+            width={3543}
+            height={1901}
+            sizes="(max-width: 1023px) 100vw, 50vw"
+            className="h-auto w-full object-contain"
+          />
+        </motion.div>
       </section>
       {/* Benefits section: reasons to choose the service. */}
       <section className="bg-slate-50 py-14 sm:py-20">
@@ -281,6 +317,7 @@ export default function Home() {
               alt="White Toyota Camry cab"
               width={500}
               height={266}
+              loading="eager"
               className="promo-car-image relative z-10 bg-white object-contain"
             />
           </motion.div>
@@ -321,7 +358,7 @@ function Field({ label, placeholder, icon }) {
       <span className="relative mt-2 block">
         <input
           placeholder={placeholder}
-          className="w-full border border-slate-200 border-b-lime-500 px-4 py-3 pr-10 transition outline-none focus:border-lime-500"
+          className="w-full border border-slate-200 border-b-lime-500 px-4 py-2.5 pr-10 transition outline-none focus:border-lime-500"
         />
         {icon && <span className="absolute top-3 right-3 text-slate-500">{icon}</span>}
       </span>

@@ -7,8 +7,9 @@ const manrope = Manrope({
 });
 
 export const metadata = {
-  title: "Welcome",
-  description: "Welcome to SKG",
+  title: "SKG Travels | Cab Booking & Car Rentals",
+  description:
+    "Book local cabs, city-to-city rides, and car rentals with SKG Travels. Explore comfortable cars, transparent fares, and 24/7 support.",
   icons: {
     icon: "/skg-favicon.png",
     shortcut: "/skg-favicon.png",
@@ -18,7 +19,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={manrope.className}>
+    <html lang="en" className={manrope.className} data-scroll-behavior="smooth">
       <body suppressHydrationWarning>{children}</body>
     </html>
   );

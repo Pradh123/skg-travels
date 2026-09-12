@@ -22,7 +22,7 @@ const links = [
     href: "/cities/mumbai",
     children: cities.map(({ name, slug }) => ({ label: name, href: `/cities/${slug}` })),
   },
-  { label: "Blog", href: "/#services" },
+  { label: "Blog", href: "/blog" },
   { label: "About", href: "/about" },
   { label: "Contact us", href: "/contact" },
 ];
@@ -113,7 +113,7 @@ export default function Header() {
         </div>
         <MotionLink
           href="/#book"
-          className="hidden h-14 w-56 shrink-0 items-center justify-center gap-2 bg-lime-500 py-4 pr-7 pl-12 text-lg font-medium whitespace-nowrap text-white xl:flex"
+          className="hidden h-12 w-52 shrink-0 items-center justify-center gap-2 bg-lime-600 py-3 pr-5 pl-10 text-lg font-medium whitespace-nowrap text-white xl:flex"
           whileTap={{ scale: 0.98 }}
           whileHover={{ scale: 1.02 }}
           style={{ clipPath: "polygon(0 0, 100% 0, 100% 100%, 24% 100%)" }}
@@ -232,7 +232,7 @@ export default function Header() {
                 <Link
                   href="/#book"
                   onClick={() => setOpen(false)}
-                  className="flex h-12 items-center justify-center gap-2 bg-lime-500 font-semibold text-white"
+                  className="flex h-11 items-center justify-center gap-2 bg-lime-600 px-4 font-semibold text-white"
                 >
                   <FaPhoneAlt size={15} /> BOOK A RIDE
                 </Link>

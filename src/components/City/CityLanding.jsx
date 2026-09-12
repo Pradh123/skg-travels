@@ -15,36 +15,38 @@ export default function CityLanding({ city }) {
   return (
     <main className="overflow-x-clip bg-white text-slate-900">
       {/* Shared hero: the copy changes from city data while its visual treatment stays consistent. */}
-      <section className="city-hero relative isolate min-h-[560px] overflow-hidden sm:min-h-[620px] lg:min-h-[660px]">
-        <Image
-          src={hero.image}
-          alt={`Comfortable car rental service in ${city.name}`}
-          fill
-          priority
-          sizes="100vw"
-          className="city-hero-image -z-20"
-          style={{
-            "--hero-position-mobile": hero.imagePosition.mobile,
-            "--hero-position-tablet": hero.imagePosition.tablet,
-            "--hero-position-desktop": hero.imagePosition.desktop,
-          }}
-        />
+      <section className="city-hero relative isolate overflow-hidden lg:min-h-[660px]">
+        <div className="absolute inset-x-0 top-0 -z-20 h-64 sm:h-[340px] lg:inset-0 lg:h-full">
+          <Image
+            src={hero.image}
+            alt={`Comfortable car rental service in ${city.name}`}
+            fill
+            priority
+            sizes="100vw"
+            className="city-hero-image"
+            style={{
+              "--hero-position-mobile": hero.imagePosition.mobile,
+              "--hero-position-tablet": hero.imagePosition.tablet,
+              "--hero-position-desktop": hero.imagePosition.desktop,
+            }}
+          />
+        </div>
         <div className="city-hero-overlay absolute inset-0 -z-10" />
         <motion.div
           initial="hidden"
           animate="visible"
           variants={rise}
           transition={{ duration: 0.75, ease: "easeOut" }}
-          className="container flex min-h-[560px] items-start pt-10 sm:min-h-[620px] sm:pt-14 lg:min-h-[660px] lg:items-center lg:py-16"
+          className="container flex items-start justify-center pt-[19rem] pb-14 sm:pt-[25rem] sm:pb-16 lg:min-h-[660px] lg:items-center lg:justify-start lg:py-16"
         >
-          <div className="max-w-[19rem] text-white sm:max-w-md lg:max-w-xl">
+          <div className="w-full max-w-xl text-center text-white sm:max-w-2xl lg:max-w-xl lg:text-left">
             <p className="text-lg font-medium tracking-wide sm:text-2xl lg:text-3xl">
               {hero.eyebrow}
             </p>
             <h1 className="mt-3 text-4xl leading-[1.08] font-extrabold sm:mt-4 sm:text-5xl lg:text-7xl">
               {hero.title}
             </h1>
-            <p className="mt-5 max-w-lg text-sm leading-7 text-white/90 sm:text-base">
+            <p className="mx-auto mt-5 max-w-lg text-sm leading-7 text-white/90 sm:text-base lg:mx-0">
               {hero.description}
             </p>
             <Link href={hero.buttonHref} className="promo-book-button mt-7">
@@ -57,7 +59,13 @@ export default function CityLanding({ city }) {
       {/* About block mirrors the supplied two-column city layout. */}
       <section className="container py-14 sm:py-20 lg:py-24">
         <div className="grid items-center gap-10 lg:grid-cols-[1.15fr_.85fr] lg:gap-16">
-          <motion.div initial="hidden" whileInView="visible" viewport={viewport} variants={rise}>
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewport}
+            variants={rise}
+            className="text-center lg:text-left"
+          >
             <p className="text-lg font-bold text-lime-600 sm:text-xl">{about.eyebrow}</p>
             <h2 className="mt-2 text-3xl leading-tight font-extrabold text-slate-950 sm:text-5xl">
               {about.title}
@@ -67,7 +75,7 @@ export default function CityLanding({ city }) {
                 <p key={paragraph}>{paragraph}</p>
               ))}
             </div>
-            <div className="mt-7 grid gap-3 text-sm text-slate-600 sm:grid-cols-2 sm:text-base">
+            <div className="mt-7 grid gap-3 text-left text-sm text-slate-600 sm:grid-cols-2 sm:text-base">
               {about.features.map((item) => (
                 <p key={item} className="flex items-center gap-2">
                   <span className="grid h-6 w-6 place-items-center rounded bg-lime-500 text-white">
