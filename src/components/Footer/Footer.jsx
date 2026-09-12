@@ -1,50 +1,55 @@
 import { FaInstagram, FaLinkedinIn, FaYoutube } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import Link from "next/link";
+import { isPageVisible } from "@/data/visiblePages";
+
+const companyLinks = [
+  { label: "About us", href: "/about" },
+  { label: "Privacy Policy", href: "/privacy-policy" },
+  { label: "Terms and Conditions", href: "/terms-and-conditions" },
+  { label: "Refunds", href: "/refunds" },
+];
+
+const serviceLinks = [
+  { label: "City to City", href: "/packages" },
+  { label: "Local Rentals", href: "/local-rental" },
+];
+
 export default function Footer() {
+  const visibleCompanyLinks = companyLinks.filter(({ href }) => isPageVisible(href));
+  const visibleServiceLinks = serviceLinks.filter(({ href }) => isPageVisible(href));
+
   return (
     <footer className="w-full bg-black pt-10 pb-24 text-white sm:py-10">
       <div className="container grid gap-9 text-center md:grid-cols-3 md:gap-7 md:text-left">
-        <div>
-          <h3 className="mb-4 text-xl text-slate-400">Company</h3>
-          <div className="space-y-2 text-sm sm:text-base">
-            <p>
-              <Link href="/about" className="transition hover:text-lime-500">
-                About us
-              </Link>
-            </p>
-            <p>
-              <Link href="/privacy-policy" className="transition hover:text-lime-500">
-                Privacy Policy
-              </Link>
-            </p>
-            <p>
-              <Link href="/terms-and-conditions" className="transition hover:text-lime-500">
-                Terms and Conditions
-              </Link>
-            </p>
-            <p>
-              <Link href="/refunds" className="transition hover:text-lime-500">
-                Refunds
-              </Link>
-            </p>
+        {visibleCompanyLinks.length > 0 && (
+          <div>
+            <h3 className="mb-4 text-xl text-slate-400">Company</h3>
+            <div className="space-y-2 text-sm sm:text-base">
+              {visibleCompanyLinks.map(({ label, href }) => (
+                <p key={href}>
+                  <Link href={href} className="transition hover:text-lime-500">
+                    {label}
+                  </Link>
+                </p>
+              ))}
+            </div>
           </div>
-        </div>
-        <div>
-          <h3 className="mb-4 text-xl text-slate-400">Services</h3>
-          <div className="space-y-2 text-sm sm:text-base">
-            <p>
-              <Link href="/packages" className="transition hover:text-lime-500">
-                City to City
-              </Link>
-            </p>
-            <p>
-              <Link href="/local-rental" className="transition hover:text-lime-500">
-                Local Rentals
-              </Link>
-            </p>
+        )}
+        {visibleServiceLinks.length > 0 && (
+          <div>
+            <h3 className="mb-4 text-xl text-slate-400">Services</h3>
+            <div className="space-y-2 text-sm sm:text-base">
+              {visibleServiceLinks.map(({ label, href }) => (
+                <p key={href}>
+                  <Link href={href} className="transition hover:text-lime-500">
+                    {label}
+                  </Link>
+                </p>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
         <div>
           <h3 className="mb-4 text-xl text-slate-400">Get in touch</h3>
           <p className="text-sm sm:text-base">Contact us</p>

@@ -162,7 +162,7 @@ export default function Cars() {
                   <p className="text-sm text-slate-500">Tolls and state tax excluded</p>
                 </div>
                 <Link
-                  href="/#book"
+                  href={`/book-ride?car=${encodeURIComponent(car.models)}`}
                   className="mx-auto inline-flex min-h-12 w-full items-center justify-center rounded-lg bg-lime-500 px-6 py-3 font-extrabold whitespace-nowrap text-white shadow-sm transition hover:bg-lime-600 hover:shadow-md md:mx-0 md:w-auto"
                 >
                   Book Now

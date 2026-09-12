@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { ArrowRight, MapPinned, Route } from "lucide-react";
 import Link from "next/link";
+import { isPageVisible } from "@/data/visiblePages";
 import { FaWhatsapp } from "react-icons/fa";
 import { packageRoutes } from "@/data/packageRoutes";
 
@@ -125,9 +126,15 @@ export default function Packages() {
           <p className="mx-auto mt-4 max-w-2xl text-sm leading-7 text-white/85 sm:text-base">
             Tell us where you want to go and we will create a comfortable package for your journey.
           </p>
-          <Link href="/contact" className="promo-book-button mt-6 sm:mt-7">
-            GET A CUSTOM QUOTE
-          </Link>
+          {isPageVisible("/contact") ? (
+            <Link href="/contact" className="promo-book-button mt-6 sm:mt-7">
+              GET A CUSTOM QUOTE
+            </Link>
+          ) : (
+            <a href="tel:+917506222999" className="promo-book-button mt-6 sm:mt-7">
+              CALL FOR A CUSTOM QUOTE
+            </a>
+          )}
         </div>
       </motion.section>
 

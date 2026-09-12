@@ -5,6 +5,7 @@ import { LockKeyhole, ShieldCheck } from "lucide-react";
 import Link from "next/link";
 import { FaWhatsapp } from "react-icons/fa";
 import LegalSidebarNav from "@/components/LegalSidebarNav/LegalSidebarNav";
+import { isPageVisible } from "@/data/visiblePages";
 
 const viewport = { once: false, amount: 0.12 };
 const rise = {
@@ -143,17 +144,30 @@ export default function PrivacyPolicy() {
                     </h2>
                     <div className="mt-4 space-y-4 text-justify text-sm leading-7 text-slate-600 sm:text-left sm:text-base sm:leading-8">
                       {section.id === "contacting-us" ? (
-                        <p>
-                          If there are any questions regarding this privacy policy you may contact
-                          us using the information on the{" "}
-                          <Link
-                            href="/contact"
-                            className="font-bold text-lime-600 underline-offset-4 transition hover:text-lime-700 hover:underline"
-                          >
-                            Contact Us
-                          </Link>{" "}
-                          page.
-                        </p>
+                        isPageVisible("/contact") ? (
+                          <p>
+                            If there are any questions regarding this privacy policy you may contact
+                            us using the information on the{" "}
+                            <Link
+                              href="/contact"
+                              className="font-bold text-lime-600 underline-offset-4 transition hover:text-lime-700 hover:underline"
+                            >
+                              Contact Us
+                            </Link>{" "}
+                            page.
+                          </p>
+                        ) : (
+                          <p>
+                            If there are any questions regarding this privacy policy, email us at{" "}
+                            <a
+                              href="mailto:support@skgtravels.in"
+                              className="font-bold text-lime-600 underline-offset-4 transition hover:text-lime-700 hover:underline"
+                            >
+                              support@skgtravels.in
+                            </a>
+                            .
+                          </p>
+                        )
                       ) : (
                         section.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)
                       )}
