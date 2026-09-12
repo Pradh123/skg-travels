@@ -3,7 +3,7 @@ import { isPageVisible } from "@/data/visiblePages";
 
 export function proxy(request) {
   if (!isPageVisible(request.nextUrl.pathname)) {
-    return new Response("Page not found", { status: 404 });
+    return NextResponse.redirect(new URL("/", request.url));
   }
 
   return NextResponse.next();

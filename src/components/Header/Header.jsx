@@ -6,7 +6,6 @@ import { ChevronDown, Mail, Menu, Phone, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { FaPhoneAlt } from "react-icons/fa";
 import { cities } from "@/data/cities";
-import { isPageVisible } from "@/data/visiblePages";
 const links = [
   { label: "Home", href: "/" },
   {
@@ -26,13 +25,7 @@ const links = [
   { label: "Blog", href: "/blog" },
   { label: "About", href: "/about" },
   { label: "Contact us", href: "/contact" },
-]
-  .map((link) =>
-    link.children
-      ? { ...link, children: link.children.filter((child) => isPageVisible(child.href)) }
-      : link
-  )
-  .filter((link) => (link.children ? link.children.length > 0 : isPageVisible(link.href)));
+];
 const MotionLink = motion.create(Link);
 
 export default function Header() {

@@ -1,6 +1,5 @@
-// Comment out a line to hide that page from the website.
-// /blog, /cities, and /packages also control all of their detail pages.
-// Example: comment out "/blog" to hide /blog and every /blog/[slug] page.
+// Comment out a route to send visitors to Home when they open it.
+// Navigation links remain visible. /blog, /cities, and /packages also control their detail pages.
 export const visiblePages = [
   "/about",
   "/book-ride",

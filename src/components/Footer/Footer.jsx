@@ -1,7 +1,6 @@
 import { FaInstagram, FaLinkedinIn, FaYoutube } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import Link from "next/link";
-import { isPageVisible } from "@/data/visiblePages";
 
 const companyLinks = [
   { label: "About us", href: "/about" },
@@ -16,40 +15,33 @@ const serviceLinks = [
 ];
 
 export default function Footer() {
-  const visibleCompanyLinks = companyLinks.filter(({ href }) => isPageVisible(href));
-  const visibleServiceLinks = serviceLinks.filter(({ href }) => isPageVisible(href));
-
   return (
     <footer className="w-full bg-black pt-10 pb-24 text-white sm:py-10">
       <div className="container grid gap-9 text-center md:grid-cols-3 md:gap-7 md:text-left">
-        {visibleCompanyLinks.length > 0 && (
-          <div>
-            <h3 className="mb-4 text-xl text-slate-400">Company</h3>
-            <div className="space-y-2 text-sm sm:text-base">
-              {visibleCompanyLinks.map(({ label, href }) => (
-                <p key={href}>
-                  <Link href={href} className="transition hover:text-lime-500">
-                    {label}
-                  </Link>
-                </p>
-              ))}
-            </div>
+        <div>
+          <h3 className="mb-4 text-xl text-slate-400">Company</h3>
+          <div className="space-y-2 text-sm sm:text-base">
+            {companyLinks.map(({ label, href }) => (
+              <p key={href}>
+                <Link href={href} className="transition hover:text-lime-500">
+                  {label}
+                </Link>
+              </p>
+            ))}
           </div>
-        )}
-        {visibleServiceLinks.length > 0 && (
-          <div>
-            <h3 className="mb-4 text-xl text-slate-400">Services</h3>
-            <div className="space-y-2 text-sm sm:text-base">
-              {visibleServiceLinks.map(({ label, href }) => (
-                <p key={href}>
-                  <Link href={href} className="transition hover:text-lime-500">
-                    {label}
-                  </Link>
-                </p>
-              ))}
-            </div>
+        </div>
+        <div>
+          <h3 className="mb-4 text-xl text-slate-400">Services</h3>
+          <div className="space-y-2 text-sm sm:text-base">
+            {serviceLinks.map(({ label, href }) => (
+              <p key={href}>
+                <Link href={href} className="transition hover:text-lime-500">
+                  {label}
+                </Link>
+              </p>
+            ))}
           </div>
-        )}
+        </div>
         <div>
           <h3 className="mb-4 text-xl text-slate-400">Get in touch</h3>
           <p className="text-sm sm:text-base">Contact us</p>
