@@ -1,9 +1,10 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ChevronRight, ClipboardCheck, Scale } from "lucide-react";
+import { ClipboardCheck, Scale } from "lucide-react";
 import Link from "next/link";
 import { FaWhatsapp } from "react-icons/fa";
+import LegalSidebarNav from "@/components/LegalSidebarNav/LegalSidebarNav";
 
 const viewport = { once: false, amount: 0.12 };
 const rise = {
@@ -28,9 +29,9 @@ const cancellationRules = [
 ];
 
 const navItems = [
-  { label: "Introduction", href: "#introduction" },
-  { label: "Terms of Use", href: "#terms-of-use" },
-  { label: "Cancellation and Returns", href: "#cancellation-and-returns" },
+  { title: "Introduction", id: "introduction" },
+  { title: "Terms of Use", id: "terms-of-use" },
+  { title: "Cancellation and Returns", id: "cancellation-and-returns" },
 ];
 
 export default function TermsConditions() {
@@ -88,21 +89,11 @@ export default function TermsConditions() {
               <ClipboardCheck size={20} className="text-lime-600" />
               <h2 className="font-bold text-slate-950">On this page</h2>
             </div>
-            <nav
-              aria-label="Terms sections"
-              className="mt-4 grid gap-1 sm:grid-cols-3 lg:grid-cols-1"
-            >
-              {navItems.map((item) => (
-                <a
-                  key={item.href}
-                  href={item.href}
-                  className="flex items-center justify-between rounded-lg px-3 py-2.5 text-sm text-slate-600 transition hover:bg-lime-50 hover:text-lime-700"
-                >
-                  {item.label}
-                  <ChevronRight size={15} className="shrink-0" />
-                </a>
-              ))}
-            </nav>
+            <LegalSidebarNav
+              sections={navItems}
+              sectionLabel="Terms sections"
+              columns="sm:grid-cols-3 lg:grid-cols-1"
+            />
           </motion.aside>
 
           <div className="space-y-5 sm:space-y-6">

@@ -1,9 +1,10 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ChevronRight, LockKeyhole, ShieldCheck } from "lucide-react";
+import { LockKeyhole, ShieldCheck } from "lucide-react";
 import Link from "next/link";
 import { FaWhatsapp } from "react-icons/fa";
+import LegalSidebarNav from "@/components/LegalSidebarNav/LegalSidebarNav";
 
 const viewport = { once: false, amount: 0.12 };
 const rise = {
@@ -115,21 +116,11 @@ export default function PrivacyPolicy() {
               <LockKeyhole size={20} className="text-lime-600" />
               <h2 className="font-bold text-slate-950">Policy sections</h2>
             </div>
-            <nav
-              aria-label="Privacy policy sections"
-              className="mt-4 grid gap-1 sm:grid-cols-2 lg:grid-cols-1"
-            >
-              {sections.map((section) => (
-                <a
-                  key={section.id}
-                  href={`#${section.id}`}
-                  className="flex items-center justify-between rounded-lg px-3 py-2.5 text-sm text-slate-600 transition hover:bg-lime-50 hover:text-lime-700"
-                >
-                  {section.title}
-                  <ChevronRight size={15} className="shrink-0" />
-                </a>
-              ))}
-            </nav>
+            <LegalSidebarNav
+              sections={sections}
+              sectionLabel="Privacy policy sections"
+              columns="sm:grid-cols-2 lg:grid-cols-1"
+            />
           </motion.aside>
 
           <div className="space-y-5 sm:space-y-6">
